@@ -25,7 +25,6 @@ ChartJS.register(
 
 const LineChart = ({ data }) => {
   const finalData = data.slice(0, 25);
-  console.log(finalData);
 
   const ChartData = {
     datasets: [
