@@ -6,8 +6,8 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 const PieChart = ({ data }) => {
   const finalData = data.slice(0, 299); // taking 300 elements of the array
-  const unique = finalData.filter((obj, index) => {  // removing elements that have the same region
-    return index === finalData.findIndex(o => obj.region === o.region);
+  const unique = finalData.filter((obj, index) => {  // removing elements that have the same region and empty region
+    return index === finalData.findIndex(o => obj.region === o.region) && obj.region !== "";
   });
   let region = unique.map(a => a.region); // making an array of all unique region
   let borderArray = [];
@@ -49,7 +49,8 @@ const PieChart = ({ data }) => {
 
   return (
     <div className='w-8/12 mx-auto border-2 border-neutral-300 rounded-lg bg-white p-10'>
-      <p className='text-2xl pb-5 font-medium'>Pie Chart</p>
+      <p className='text-2xl pb-0 font-medium'>Pie Chart</p>
+      <p className='text-sm'>Showing intensity according to Region</p>
       <Pie
         options={options}
         data={data2}

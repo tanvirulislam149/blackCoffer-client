@@ -24,32 +24,36 @@ ChartJS.register(
 );
 
 const LineChart = ({ data }) => {
-  const finalData = data.slice(0, 25);
+  const finalData = data.slice(0, 199); // taking 200 elements of the array
+  const uniqueData = finalData.filter((obj, index) => {  // removing elements that have the same country name and elements that don't have a country name
+    const result = index === finalData.findIndex(o => obj.country === o.country) && obj.country !== ""
+    return result;
+  });
 
   const ChartData = {
     datasets: [
       {
+        label: "Relevance",
+        data: uniqueData,
+        borderColor: "rgb(255, 246, 55)",
+        backgroundColor: "rgba(255, 246, 55, 0.4)",
+        fill: true,
+        parsing: {
+          xAxisKey: 'country',
+          yAxisKey: 'relevance'
+        }
+      },
+      {
         label: "Likelihood",
-        data: finalData,
+        data: uniqueData,
         borderColor: "rgb(178, 217, 255)",
         backgroundColor: "rgba(178, 217, 255, 0.5)",
         fill: true,
         parsing: {
-          xAxisKey: 'source',
+          xAxisKey: 'country',
           yAxisKey: 'likelihood'
         }
-      },
-      {
-        label: "Relevance",
-        data: finalData,
-        borderColor: "rgb(255, 246, 55)",
-        backgroundColor: "rgba(255, 246, 55, 0.5)",
-        fill: true,
-        parsing: {
-          xAxisKey: 'source',
-          yAxisKey: 'relevance'
-        }
-      },],
+      }],
   };
 
 
@@ -58,6 +62,7 @@ const LineChart = ({ data }) => {
     scales: {
       y: {
         beginAtZero: true,
+        suggestedMax: 5
       },
       x: {
         title: {
@@ -78,7 +83,8 @@ const LineChart = ({ data }) => {
   };
   return (
     <div className='w-4/5 h-4/5 mx-auto border-2 border-neutral-300 rounded-lg bg-white p-10'>
-      <p className='text-2xl pb-5 font-medium'>Line Chart</p>
+      <p className='text-2xl font-medium'>Line Chart</p>
+      <p className='text-sm pb-5'>Showing Likelihood and Relevance according to country</p>
       <Line
         options={options}
         data={ChartData}

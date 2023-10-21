@@ -20,12 +20,16 @@ ChartJS.register(
 );
 
 const BarChart = ({ data }) => {
-  const finalData = data.slice(0, 150);
+  const finalData = data;
+  const uniqueData = finalData.filter((obj, index) => {  // removing elements that have the same topic name and elements that don't have a topic name, start year and end year.
+    const result = index === finalData.findIndex(o => obj.topic === o.topic) && obj.topic !== "" && obj.start_year !== "" && obj.end_year !== ""
+    return result;
+  });
   const ChartData = {
     datasets: [
       {
         label: "Start Year",
-        data: finalData,
+        data: uniqueData,
         borderColor: "rgb(178, 217, 255)",
         backgroundColor: "rgba(178, 217, 255, 0.5)",
         fill: true,
@@ -36,7 +40,7 @@ const BarChart = ({ data }) => {
       },
       {
         label: "End Year",
-        data: finalData,
+        data: uniqueData,
         borderColor: "rgb(255, 246, 55)",
         backgroundColor: "rgba(255, 246, 55, 0.5)",
         fill: true,
@@ -51,7 +55,9 @@ const BarChart = ({ data }) => {
     responsive: true,
     scales: {
       y: {
-        beginAtZero: true,
+        beginAtZero: false,
+        suggestedMin: 1500,
+        suggestedMax: 2500
       },
       x: {
         title: {
@@ -72,7 +78,8 @@ const BarChart = ({ data }) => {
   };
   return (
     <div className='w-4/5 h-4/5 mx-auto border-2 my-10 border-neutral-300 rounded-lg bg-white p-10'>
-      <p className='text-2xl pb-5 font-medium'>Bar Chart</p>
+      <p className='text-2xl font-medium'>Bar Chart</p>
+      <p className='text-sm pb-5'>Showing start year and end year according to Topic</p>
       <Bar options={options} data={ChartData} />
     </div>
   )
