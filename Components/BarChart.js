@@ -21,7 +21,6 @@ ChartJS.register(
 
 const BarChart = ({ data }) => {
   const finalData = data.slice(0, 150);
-  console.log(finalData);
   const ChartData = {
     datasets: [
       {

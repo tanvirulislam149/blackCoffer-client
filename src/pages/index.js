@@ -5,6 +5,7 @@ import axios from 'axios'
 import LineChart from '../../Components/LineChart'
 import Navbar from '../../Components/Navbar'
 import BarChart from '../../Components/BarChart'
+import PieChart from '../../Components/PieChart'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
@@ -25,6 +26,7 @@ export default function Home() {
     <main className={`min-h-screen bg-slate-100 p-5 ${montserrat.className}`}>
       <LineChart data={data} />
       <BarChart data={data} />
+      <PieChart data={data} />
     </main>
   )
 }
