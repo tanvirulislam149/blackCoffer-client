@@ -25,30 +25,32 @@ ChartJS.register(
 
 const LineChart = ({ data }) => {
   const finalData = data.slice(0, 25);
+  console.log(finalData);
 
   const ChartData = {
-    datasets: [{
-      label: "Relevance",
-      data: finalData,
-      borderColor: "rgb(255, 196, 178)",
-      backgroundColor: "rgba(255, 196, 178, 0.5)",
-      fill: true,
-      parsing: {
-        xAxisKey: 'source',
-        yAxisKey: 'relevance'
-      }
-    },
-    {
-      label: "Likelihood",
-      data: finalData,
-      borderColor: "rgb(178, 217, 255)",
-      backgroundColor: "rgba(178, 217, 255, 0.5)",
-      fill: true,
-      parsing: {
-        xAxisKey: 'source',
-        yAxisKey: 'likelihood'
-      }
-    }],
+    datasets: [
+      {
+        label: "Likelihood",
+        data: finalData,
+        borderColor: "rgb(178, 217, 255)",
+        backgroundColor: "rgba(178, 217, 255, 0.5)",
+        fill: true,
+        parsing: {
+          xAxisKey: 'source',
+          yAxisKey: 'likelihood'
+        }
+      },
+      {
+        label: "Relevance",
+        data: finalData,
+        borderColor: "rgb(255, 246, 55)",
+        backgroundColor: "rgba(255, 246, 55, 0.5)",
+        fill: true,
+        parsing: {
+          xAxisKey: 'source',
+          yAxisKey: 'relevance'
+        }
+      },],
   };
 
 
@@ -56,7 +58,13 @@ const LineChart = ({ data }) => {
     responsive: true,
     scales: {
       y: {
-        beginAtZero: true
+        beginAtZero: true,
+      },
+      x: {
+        title: {
+          display: true,
+          text: "Source",
+        },
       }
     },
     plugins: {
@@ -70,7 +78,7 @@ const LineChart = ({ data }) => {
     },
   };
   return (
-    <div className='w-11/12 h-11/12 mx-auto border-2 border-neutral-300 rounded-lg bg-white p-10'>
+    <div className='w-4/5 h-4/5 mx-auto border-2 border-neutral-300 rounded-lg bg-white p-10'>
       <p className='text-2xl pb-5 font-medium'>Line Chart</p>
       <Line
         options={options}
