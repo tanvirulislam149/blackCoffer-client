@@ -28,10 +28,10 @@ const LineChart = ({ data }) => {
 
   const ChartData = {
     datasets: [{
-      label: "relevance",
+      label: "Relevance",
       data: finalData,
-      borderColor: "rgb(220, 38, 38)",
-      backgroundColor: "rgba(220, 38, 38, 0.4)",
+      borderColor: "rgb(255, 196, 178)",
+      backgroundColor: "rgba(255, 196, 178, 0.5)",
       fill: true,
       parsing: {
         xAxisKey: 'source',
@@ -39,10 +39,10 @@ const LineChart = ({ data }) => {
       }
     },
     {
-      label: "likelihood",
+      label: "Likelihood",
       data: finalData,
-      borderColor: "rgb(23 37 84)",
-      backgroundColor: "rgba(23, 37, 84, 0.5)",
+      borderColor: "rgb(178, 217, 255)",
+      backgroundColor: "rgba(178, 217, 255, 0.5)",
       fill: true,
       parsing: {
         xAxisKey: 'source',
@@ -64,16 +64,19 @@ const LineChart = ({ data }) => {
         position: 'top',
       },
       title: {
-        display: true,
+        display: false,
         text: 'Line Chart',
       },
     },
   };
   return (
-    <Line
-      options={options}
-      data={ChartData}
-    />
+    <div className='w-11/12 h-11/12 mx-auto border-2 border-neutral-300 rounded-lg bg-white p-10'>
+      <p className='text-2xl pb-5 font-medium'>Line Chart</p>
+      <Line
+        options={options}
+        data={ChartData}
+      />
+    </div>
   )
 }
 

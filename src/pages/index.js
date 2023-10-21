@@ -1,10 +1,11 @@
 import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import { Montserrat } from 'next/font/google'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import LineChart from '../../Components/LineChart'
+import Navbar from '../../Components/Navbar'
 
-const inter = Inter({ subsets: ['latin'] })
+const montserrat = Montserrat({ subsets: ['latin'] })
 
 export default function Home() {
   const [data, setData] = useState([]);
@@ -20,9 +21,7 @@ export default function Home() {
   }, [])
 
   return (
-    <main
-      className={`flex min-h-screen p-14 ${inter.className}`}
-    >
+    <main className={`min-h-screen bg-slate-100 p-14 ${montserrat.className}`}>
       <LineChart data={data} />
     </main>
   )
