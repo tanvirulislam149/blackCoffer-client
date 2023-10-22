@@ -23,6 +23,8 @@ const BarChart = ({ data }) => {
   const [selectedStartYear, setSelectedStartYear] = useState("");
   const [selectedEndYear, setSelectedEndYear] = useState("");
   const [filteredData, setFilterData] = useState([]);
+  const [selectedTopic, setSelectedTopic] = useState("");
+  const [topicFilteredData, setTopicFilteredData] = useState([]);
 
   const uniqueData = data.filter((obj, index) => {  // removing elements that have the same topic name and elements that don't have a topic name, start year and end year.
     const result = index === data.findIndex(o => obj.topic === o.topic) && obj.topic !== "" && obj.start_year !== "" && obj.end_year !== ""
@@ -30,10 +32,15 @@ const BarChart = ({ data }) => {
   });
   const startYearArray = ((uniqueData.map(d => d.start_year)).filter((x, i, a) => a.indexOf(x) == i)).sort();
   const endYearArray = ((uniqueData.map(d => d.end_year)).filter((x, i, a) => a.indexOf(x) == i)).sort();
+  const topicArray = uniqueData.map(d => d.topic)
+
+  const handleTopicFilter = () => {
+    const data = uniqueData.filter(d => d.topic === selectedTopic);
+    setTopicFilteredData(data);
+  }
 
   const handleFilter = () => {
     const data = uniqueData.filter(d => d.start_year >= `${Number(selectedStartYear)}` && d.end_year <= `${Number(selectedEndYear)}`);
-    console.log(Number(selectedStartYear), Number(selectedEndYear));
     setFilterData(data);
   }
 
@@ -44,15 +51,12 @@ const BarChart = ({ data }) => {
     setFilterData([]);
   }
 
-  console.log(filteredData);
-
-
 
   const ChartData = {
     datasets: [
       {
         label: "Start Year",
-        data: filteredData.length ? filteredData : uniqueData,
+        data: filteredData.length ? filteredData : topicFilteredData.length ? topicFilteredData : uniqueData,
         backgroundColor: "rgba(63, 255, 25, 0.5)",
         fill: true,
         parsing: {
@@ -62,7 +66,7 @@ const BarChart = ({ data }) => {
       },
       {
         label: "End Year",
-        data: filteredData.length ? filteredData : uniqueData,
+        data: filteredData.length ? filteredData : topicFilteredData.length ? topicFilteredData : uniqueData,
         backgroundColor: "rgba(255, 136, 137, 0.5)",
         fill: true,
         parsing: {
@@ -105,8 +109,15 @@ const BarChart = ({ data }) => {
         <option value="default">Select end year</option>
         {endYearArray.map((y, index) => <option key={index} value={y}>{y}</option>)}
       </select>
-      <button className='px-4 mr-4 py-1 border-2 border-gray-300 rounded-md' onClick={() => handleFilter()}>filter</button>
+      <button className='px-4 mr-4 py-1 border-2 border-gray-300 rounded-md' onClick={() => handleFilter()}>Filter</button>
       <button className='px-4 py-1 border-2 border-gray-300 rounded-md' onClick={() => handleReset()}>Reset</button>
+      <br />
+      <select defaultValue={"default"} value={selectedTopic} onChange={(e) => setSelectedTopic(e.target.value)} className='my-3 border-2 w-40 border-gray-300 px-1 py-1 rounded' name="startYear" id="startYear">
+        <option value="default">Select topic</option>
+        {topicArray.map((y, index) => <option key={index} value={y}>{y}</option>)}
+      </select>
+      <button className='px-4 mx-4 py-1 border-2 border-gray-300 rounded-md' onClick={() => handleTopicFilter()}>Filter</button>
+      <button className='px-4 py-1 border-2 border-gray-300 rounded-md' onClick={() => { setTopicFilteredData([]); setSelectedTopic("") }}>Reset</button>
       <Bar options={options} data={ChartData} />
     </div>
   )
