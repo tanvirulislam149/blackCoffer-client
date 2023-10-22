@@ -8,7 +8,7 @@ module.exports = {
     // Or if using `src` directory:
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  purge: ['./src/**/*.{js,ts,jsx,tsx}'],
+  purge: './src/**/*.{js,ts,jsx,tsx}',
   theme: {
     extend: {
       backgroundImage: {
