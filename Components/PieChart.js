@@ -23,9 +23,6 @@ const PieChart = ({ data }) => {
     setFilteredData(data);
   }
 
-  console.log(filteredData);
-
-
   useEffect(() => {
     let borderArray = [];
     const colorArray = unique.map(d => {  // making random color array according to the "unique" array
@@ -39,7 +36,6 @@ const PieChart = ({ data }) => {
     setColorArray(colorArray);
     setBorderArray(borderArray);
   }, [])
-  console.log(colorArray);
 
 
 
