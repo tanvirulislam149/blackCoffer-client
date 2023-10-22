@@ -15,7 +15,7 @@ const PieChart = ({ data }) => {
     const r = Math.floor(Math.random() * (255 + 1));
     const g = Math.floor(Math.random() * (255 + 1));
     const b = Math.floor(Math.random() * (255 + 1));
-    borderArray.push(`rgb(${r}, ${g}, ${b})`);
+    borderArray.push(`rgb(${r}, ${g}, ${b})`);  // pushing rgb color to border array so that rgb color remains the same
     const color = `rgba(${r}, ${g}, ${b}, 0.2)`;
     return color;
   })

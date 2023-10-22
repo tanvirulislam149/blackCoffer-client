@@ -29,8 +29,7 @@ const BarChart = ({ data }) => {
       {
         label: "Start Year",
         data: uniqueData,
-        borderColor: "rgb(178, 217, 255)",
-        backgroundColor: "rgba(178, 217, 255, 0.5)",
+        backgroundColor: "rgba(63, 255, 25, 0.5)",
         fill: true,
         parsing: {
           xAxisKey: 'topic',
@@ -40,8 +39,7 @@ const BarChart = ({ data }) => {
       {
         label: "End Year",
         data: uniqueData,
-        borderColor: "rgb(255, 246, 55)",
-        backgroundColor: "rgba(255, 246, 55, 0.5)",
+        backgroundColor: "rgba(255, 136, 137, 0.5)",
         fill: true,
         parsing: {
           xAxisKey: 'topic',
