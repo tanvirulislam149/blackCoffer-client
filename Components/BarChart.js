@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -20,15 +20,39 @@ ChartJS.register(
 );
 
 const BarChart = ({ data }) => {
+  const [selectedStartYear, setSelectedStartYear] = useState("");
+  const [selectedEndYear, setSelectedEndYear] = useState("");
+  const [filteredData, setFilterData] = useState([]);
+
   const uniqueData = data.filter((obj, index) => {  // removing elements that have the same topic name and elements that don't have a topic name, start year and end year.
     const result = index === data.findIndex(o => obj.topic === o.topic) && obj.topic !== "" && obj.start_year !== "" && obj.end_year !== ""
     return result;
   });
+  const startYearArray = ((uniqueData.map(d => d.start_year)).filter((x, i, a) => a.indexOf(x) == i)).sort();
+  const endYearArray = ((uniqueData.map(d => d.end_year)).filter((x, i, a) => a.indexOf(x) == i)).sort();
+
+  const handleFilter = () => {
+    const data = uniqueData.filter(d => d.start_year >= `${Number(selectedStartYear)}` && d.end_year <= `${Number(selectedEndYear)}`);
+    console.log(Number(selectedStartYear), Number(selectedEndYear));
+    setFilterData(data);
+  }
+
+
+  const handleReset = () => {
+    setSelectedStartYear("");
+    setSelectedEndYear("");
+    setFilterData([]);
+  }
+
+  console.log(filteredData);
+
+
+
   const ChartData = {
     datasets: [
       {
         label: "Start Year",
-        data: uniqueData,
+        data: filteredData.length ? filteredData : uniqueData,
         backgroundColor: "rgba(63, 255, 25, 0.5)",
         fill: true,
         parsing: {
@@ -38,7 +62,7 @@ const BarChart = ({ data }) => {
       },
       {
         label: "End Year",
-        data: uniqueData,
+        data: filteredData.length ? filteredData : uniqueData,
         backgroundColor: "rgba(255, 136, 137, 0.5)",
         fill: true,
         parsing: {
@@ -66,17 +90,23 @@ const BarChart = ({ data }) => {
     plugins: {
       legend: {
         position: 'top',
-      },
-      title: {
-        display: false,
-        text: 'Bar Chart',
-      },
+      }
     },
   };
   return (
     <div className='w-4/5 h-4/5 mx-auto border-2 my-10 border-neutral-300 rounded-lg bg-white p-10'>
       <p className='text-2xl font-medium'>Bar Chart</p>
       <p className='text-sm pb-5'>Showing start year and end year according to Topic</p>
+      <select defaultValue={"default"} value={selectedStartYear} onChange={(e) => setSelectedStartYear(e.target.value)} className='border-2 border-gray-300 px-1 py-1 mr-4 rounded' name="startYear" id="startYear">
+        <option value="default">Select start year</option>
+        {startYearArray.map((y, index) => <option key={index} value={y}>{y}</option>)}
+      </select>
+      <select defaultValue={"default"} value={selectedEndYear} onChange={(e) => setSelectedEndYear(e.target.value)} className='border-2 border-gray-300 px-1 py-1 mr-4 rounded' name="endYear" id="endYear">
+        <option value="default">Select end year</option>
+        {endYearArray.map((y, index) => <option key={index} value={y}>{y}</option>)}
+      </select>
+      <button className='px-4 mr-4 py-1 border-2 border-gray-300 rounded-md' onClick={() => handleFilter()}>filter</button>
+      <button className='px-4 py-1 border-2 border-gray-300 rounded-md' onClick={() => handleReset()}>Reset</button>
       <Bar options={options} data={ChartData} />
     </div>
   )
