@@ -1,6 +1,7 @@
 import '@/styles/globals.css'
 import Layout from '../../Components/Layout'
 import { Montserrat } from 'next/font/google'
+import 'tailwindcss/tailwind.css';
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
