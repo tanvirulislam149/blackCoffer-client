@@ -20,9 +20,8 @@ ChartJS.register(
 );
 
 const BarChart = ({ data }) => {
-  const finalData = data;
-  const uniqueData = finalData.filter((obj, index) => {  // removing elements that have the same topic name and elements that don't have a topic name, start year and end year.
-    const result = index === finalData.findIndex(o => obj.topic === o.topic) && obj.topic !== "" && obj.start_year !== "" && obj.end_year !== ""
+  const uniqueData = data.filter((obj, index) => {  // removing elements that have the same topic name and elements that don't have a topic name, start year and end year.
+    const result = index === data.findIndex(o => obj.topic === o.topic) && obj.topic !== "" && obj.start_year !== "" && obj.end_year !== ""
     return result;
   });
   const ChartData = {

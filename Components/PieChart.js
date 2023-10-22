@@ -5,9 +5,8 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const PieChart = ({ data }) => {
-  const finalData = data.slice(0, 299); // taking 300 elements of the array
-  const unique = finalData.filter((obj, index) => {  // removing elements that have the same region and empty region
-    return index === finalData.findIndex(o => obj.region === o.region) && obj.region !== "";
+  const unique = data.filter((obj, index) => {  // removing elements that have the same region and empty region
+    return index === data.findIndex(o => obj.region === o.region) && obj.region !== "";
   });
   let region = unique.map(a => a.region); // making an array of all unique region
   let borderArray = [];

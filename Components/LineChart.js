@@ -24,9 +24,8 @@ ChartJS.register(
 );
 
 const LineChart = ({ data }) => {
-  const finalData = data.slice(0, 199); // taking 200 elements of the array
-  const uniqueData = finalData.filter((obj, index) => {  // removing elements that have the same country name and elements that don't have a country name
-    const result = index === finalData.findIndex(o => obj.country === o.country) && obj.country !== ""
+  const uniqueData = data.filter((obj, index) => {  // removing elements that have the same country name and elements that don't have a country name
+    const result = index === data.findIndex(o => obj.country === o.country) && obj.country !== ""
     return result;
   });
 
